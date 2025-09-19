@@ -1,20 +1,28 @@
-; DefiniciÛn de registros
-number  rn r0     ; n˙mero lÌmite (n)
-count   rn r1     ; Ìndice de ciclo (i)
+; Definici√≥n de registros
+number  rn r0     ; n√∫mero l√≠mite (n)
+count   rn r1     ; √≠ndice de ciclo (i)
 temp    rn r2     ; puntero a memoria
 
-; ¡rea de programa
+
+; √Årea de datos
+; ----------------
+        area    datos, data, readwrite
+n       dcd     9              ; Variable con el valor l√≠mite de la serie
+
+
+; √Årea de programa
 ; ----------------
         area    l_fibo, code, readonly
         entry
         export  __main
 
 __main
-        ; Cargar direcciÛn de inicio de la SRAM
+        ; Cargar direcci√≥n de inicio de la SRAM
         ldr     temp, =0x20000000
 
-        ; LÌmite n. Este valor es para probar
-        mov     number, #9
+        ; Cargar el valor de n desde la variable
+        ldr     number, =n
+        ldr     number, [number]
 
         ; Comprobar si n < 0
         cmp     number, #0
